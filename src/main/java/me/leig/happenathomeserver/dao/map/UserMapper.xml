@@ -1,0 +1,265 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="me.leig.happenathomeserver.dao.mapper.UserMapper">
+  <resultMap id="BaseResultMap" type="me.leig.happenathomeserver.dao.model.User">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="fid" jdbcType="INTEGER" property="fid" />
+    <result column="createtime" jdbcType="TIMESTAMP" property="createtime" />
+    <result column="updatetime" jdbcType="TIMESTAMP" property="updatetime" />
+    <result column="deletetime" jdbcType="TIMESTAMP" property="deletetime" />
+    <result column="deleteflag" jdbcType="INTEGER" property="deleteflag" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="me.leig.happenathomeserver.dao.model.User">
+    <result column="username" jdbcType="LONGVARCHAR" property="username" />
+    <result column="password" jdbcType="LONGVARCHAR" property="password" />
+    <result column="restore" jdbcType="LONGVARCHAR" property="restore" />
+    <result column="realname" jdbcType="LONGVARCHAR" property="realname" />
+    <result column="headimg" jdbcType="LONGVARCHAR" property="headimg" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, fid, createtime, updatetime, deletetime, deleteflag
+  </sql>
+  <sql id="Blob_Column_List">
+    username, `password`, `restore`, realname, headimg
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from user
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from user
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="me.leig.happenathomeserver.dao.model.User">
+    insert into user (id, fid, createtime, 
+      updatetime, deletetime, deleteflag, 
+      username, `password`, `restore`, 
+      realname, headimg)
+    values (#{id,jdbcType=INTEGER}, #{fid,jdbcType=INTEGER}, #{createtime,jdbcType=TIMESTAMP}, 
+      #{updatetime,jdbcType=TIMESTAMP}, #{deletetime,jdbcType=TIMESTAMP}, #{deleteflag,jdbcType=INTEGER}, 
+      #{username,jdbcType=LONGVARCHAR}, #{password,jdbcType=LONGVARCHAR}, #{restore,jdbcType=LONGVARCHAR}, 
+      #{realname,jdbcType=LONGVARCHAR}, #{headimg,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="me.leig.happenathomeserver.dao.model.User">
+    insert into user
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="fid != null">
+        fid,
+      </if>
+      <if test="createtime != null">
+        createtime,
+      </if>
+      <if test="updatetime != null">
+        updatetime,
+      </if>
+      <if test="deletetime != null">
+        deletetime,
+      </if>
+      <if test="deleteflag != null">
+        deleteflag,
+      </if>
+      <if test="username != null">
+        username,
+      </if>
+      <if test="password != null">
+        `password`,
+      </if>
+      <if test="restore != null">
+        `restore`,
+      </if>
+      <if test="realname != null">
+        realname,
+      </if>
+      <if test="headimg != null">
+        headimg,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="fid != null">
+        #{fid,jdbcType=INTEGER},
+      </if>
+      <if test="createtime != null">
+        #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatetime != null">
+        #{updatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="deletetime != null">
+        #{deletetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="deleteflag != null">
+        #{deleteflag,jdbcType=INTEGER},
+      </if>
+      <if test="username != null">
+        #{username,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="password != null">
+        #{password,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="restore != null">
+        #{restore,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="realname != null">
+        #{realname,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="headimg != null">
+        #{headimg,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="me.leig.happenathomeserver.dao.model.User">
+    update user
+    <set>
+      <if test="fid != null">
+        fid = #{fid,jdbcType=INTEGER},
+      </if>
+      <if test="createtime != null">
+        createtime = #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatetime != null">
+        updatetime = #{updatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="deletetime != null">
+        deletetime = #{deletetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="deleteflag != null">
+        deleteflag = #{deleteflag,jdbcType=INTEGER},
+      </if>
+      <if test="username != null">
+        username = #{username,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="password != null">
+        `password` = #{password,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="restore != null">
+        `restore` = #{restore,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="realname != null">
+        realname = #{realname,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="headimg != null">
+        headimg = #{headimg,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="me.leig.happenathomeserver.dao.model.User">
+    update user
+    set fid = #{fid,jdbcType=INTEGER},
+      createtime = #{createtime,jdbcType=TIMESTAMP},
+      updatetime = #{updatetime,jdbcType=TIMESTAMP},
+      deletetime = #{deletetime,jdbcType=TIMESTAMP},
+      deleteflag = #{deleteflag,jdbcType=INTEGER},
+      username = #{username,jdbcType=LONGVARCHAR},
+      `password` = #{password,jdbcType=LONGVARCHAR},
+      `restore` = #{restore,jdbcType=LONGVARCHAR},
+      realname = #{realname,jdbcType=LONGVARCHAR},
+      headimg = #{headimg,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="me.leig.happenathomeserver.dao.model.User">
+    update user
+    set fid = #{fid,jdbcType=INTEGER},
+      createtime = #{createtime,jdbcType=TIMESTAMP},
+      updatetime = #{updatetime,jdbcType=TIMESTAMP},
+      deletetime = #{deletetime,jdbcType=TIMESTAMP},
+      deleteflag = #{deleteflag,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  
+  
+  
+  
+  
+  
+  
+    
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+	<!-- 自定义方法 -->
+	<!-- 自定义方法 -->
+	<!-- 自定义方法 -->
+	<!-- 自定义方法 -->
+	<!-- 自定义方法 -->
+	<!-- 自定义方法 -->
+	<!-- 自定义方法 -->
+	<!-- 自定义方法 -->
+	<!-- 自定义方法 -->
+	<!-- 自定义方法 -->
+	
+	<!-- 通过用户信息条件查询用户详情 -->
+	<select id="selectList"
+		parameterType="me.leig.happenathomeserver.dao.model.User"
+		resultType="me.leig.happenathomeserver.dao.model.User">
+		SELECT
+			t1.id,
+			t1.fid,
+			t2.title AS fname,
+			t1.username,
+			t1.`password`,
+			t1.`restore`,
+			t1.realname,
+			t1.headimg,
+			t1.createtime,
+			t1.updatetime,
+			t1.deletetime,
+			t1.deleteflag
+		FROM
+			`user` t1
+		LEFT JOIN family t2 ON t1.fid = t2.id
+		WHERE
+			t1.deleteflag = #{deleteflag,jdbcType=INTEGER}
+		<if test="id != null">
+			AND t1.id = #{id,jdbcType=INTEGER}
+		</if>
+		<if test="fid != null">
+			AND t1.fid = #{fid,jdbcType=INTEGER}
+		</if>
+		<if test="fname != null">
+			AND t2.title LIKE #{fname,jdbcType=INTEGER}
+		</if>
+		<if test="username != null">
+			AND t1.username LIKE #{username,jdbcType=LONGVARCHAR}
+		</if>
+		<if test="password != null">
+			AND t1.password LIKE #{password,jdbcType=LONGVARCHAR}
+		</if>
+		<if test="restore != null">
+			AND t1.restore LIKE #{restore,jdbcType=LONGVARCHAR}
+		</if>
+		<if test="realname != null">
+			AND t1.realname LIKE #{realname,jdbcType=LONGVARCHAR}
+		</if>
+		<if test="headimg != null">
+			AND t1.headimg LIKE #{headimg,jdbcType=LONGVARCHAR}
+		</if>
+		<if test="createtime != null">
+			AND t1.createtime = #{createtime,jdbcType=TIMESTAMP}
+		</if>
+		<if test="updatetime != null">
+			AND t1.updatetime = #{updatetime,jdbcType=TIMESTAMP}
+		</if>
+	</select>
+
+
+</mapper>

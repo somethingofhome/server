@@ -1,0 +1,308 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="me.leig.happenathomeserver.dao.mapper.NotesMapper">
+  <resultMap id="BaseResultMap" type="me.leig.happenathomeserver.dao.model.Notes">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="title" jdbcType="VARCHAR" property="title" />
+    <result column="gid" jdbcType="INTEGER" property="gid" />
+    <result column="createtime" jdbcType="TIMESTAMP" property="createtime" />
+    <result column="updatetime" jdbcType="TIMESTAMP" property="updatetime" />
+    <result column="deletetime" jdbcType="TIMESTAMP" property="deletetime" />
+    <result column="deleteflag" jdbcType="INTEGER" property="deleteflag" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="me.leig.happenathomeserver.dao.model.Notes">
+    <result column="content" jdbcType="LONGVARCHAR" property="content" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, title, gid, createtime, updatetime, deletetime, deleteflag
+  </sql>
+  <sql id="Blob_Column_List">
+    content
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from notes
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from notes
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="me.leig.happenathomeserver.dao.model.Notes">
+    insert into notes (id, title, gid, 
+      createtime, updatetime, deletetime, 
+      deleteflag, content)
+    values (#{id,jdbcType=INTEGER}, #{title,jdbcType=VARCHAR}, #{gid,jdbcType=INTEGER}, 
+      #{createtime,jdbcType=TIMESTAMP}, #{updatetime,jdbcType=TIMESTAMP}, #{deletetime,jdbcType=TIMESTAMP}, 
+      #{deleteflag,jdbcType=INTEGER}, #{content,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="me.leig.happenathomeserver.dao.model.Notes">
+    insert into notes
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="title != null">
+        title,
+      </if>
+      <if test="gid != null">
+        gid,
+      </if>
+      <if test="createtime != null">
+        createtime,
+      </if>
+      <if test="updatetime != null">
+        updatetime,
+      </if>
+      <if test="deletetime != null">
+        deletetime,
+      </if>
+      <if test="deleteflag != null">
+        deleteflag,
+      </if>
+      <if test="content != null">
+        content,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="title != null">
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="gid != null">
+        #{gid,jdbcType=INTEGER},
+      </if>
+      <if test="createtime != null">
+        #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatetime != null">
+        #{updatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="deletetime != null">
+        #{deletetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="deleteflag != null">
+        #{deleteflag,jdbcType=INTEGER},
+      </if>
+      <if test="content != null">
+        #{content,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="me.leig.happenathomeserver.dao.model.Notes">
+    update notes
+    <set>
+      <if test="title != null">
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="gid != null">
+        gid = #{gid,jdbcType=INTEGER},
+      </if>
+      <if test="createtime != null">
+        createtime = #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatetime != null">
+        updatetime = #{updatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="deletetime != null">
+        deletetime = #{deletetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="deleteflag != null">
+        deleteflag = #{deleteflag,jdbcType=INTEGER},
+      </if>
+      <if test="content != null">
+        content = #{content,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="me.leig.happenathomeserver.dao.model.Notes">
+    update notes
+    set title = #{title,jdbcType=VARCHAR},
+      gid = #{gid,jdbcType=INTEGER},
+      createtime = #{createtime,jdbcType=TIMESTAMP},
+      updatetime = #{updatetime,jdbcType=TIMESTAMP},
+      deletetime = #{deletetime,jdbcType=TIMESTAMP},
+      deleteflag = #{deleteflag,jdbcType=INTEGER},
+      content = #{content,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="me.leig.happenathomeserver.dao.model.Notes">
+    update notes
+    set title = #{title,jdbcType=VARCHAR},
+      gid = #{gid,jdbcType=INTEGER},
+      createtime = #{createtime,jdbcType=TIMESTAMP},
+      updatetime = #{updatetime,jdbcType=TIMESTAMP},
+      deletetime = #{deletetime,jdbcType=TIMESTAMP},
+      deleteflag = #{deleteflag,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  
+  
+  
+  
+  
+  
+  
+  
+  	<!-- 自定义方法 -->
+	<!-- 自定义方法 -->
+	<!-- 自定义方法 -->
+	<!-- 自定义方法 -->
+	<!-- 自定义方法 -->
+	<!-- 自定义方法 -->
+	<!-- 自定义方法 -->
+	<!-- 自定义方法 -->
+	<!-- 自定义方法 -->
+	<!-- 自定义方法 -->
+
+
+	<insert id="addNotes"
+		parameterType="me.leig.happenathomeserver.dao.model.NotesExt01"
+		useGeneratedKeys="true"
+		keyProperty="id">
+	  insert into notes
+	  <trim prefix="(" suffix=")" suffixOverrides=",">
+	    <if test="title != null">
+	      title,
+	    </if>
+	    <if test="gid != null">
+	      gid,
+	    </if>
+	    <if test="createtime != null">
+	      createtime,
+	    </if>
+	    <if test="updatetime != null">
+	      updatetime,
+	    </if>
+	    <if test="deletetime != null">
+	      deletetime,
+	    </if>
+	    <if test="deleteflag != null">
+	      deleteflag,
+	    </if>
+	    <if test="content != null">
+	      content,
+	    </if>
+	  </trim>
+	  <trim prefix="values (" suffix=")" suffixOverrides=",">
+	    <if test="id != null">
+	      #{id,jdbcType=INTEGER},
+	    </if>
+	    <if test="title != null">
+	      #{title,jdbcType=VARCHAR},
+	    </if>
+	    <if test="gid != null">
+	      #{gid,jdbcType=INTEGER},
+	    </if>
+	    <if test="createtime != null">
+	      #{createtime,jdbcType=TIMESTAMP},
+	    </if>
+	    <if test="updatetime != null">
+	      #{updatetime,jdbcType=TIMESTAMP},
+	    </if>
+	    <if test="deletetime != null">
+	      #{deletetime,jdbcType=TIMESTAMP},
+	    </if>
+	    <if test="deleteflag != null">
+	      #{deleteflag,jdbcType=INTEGER},
+	    </if>
+	    <if test="content != null">
+	      #{content,jdbcType=LONGVARCHAR},
+	    </if>
+	  </trim>
+	</insert>
+
+	<select id="recordsTotal"
+		parameterType="me.leig.happenathomeserver.dao.model.NotesExt01"
+		resultType="java.lang.Integer">
+		SELECT
+			COUNT(id)
+		FROM
+		FROM
+			notes t1
+		LEFT JOIN notesgenre t2 ON t1.gid = t2.id
+		WHERE
+			t1.deleteflag = #{deleteflag,jdbcType=INTEGER}
+		<if test="id != null">
+			AND t1.id = #{id,jdbcType=INTEGER}
+	    </if>
+	    <if test="title != null">
+			AND t1.title LIKE #{title,jdbcType=VARCHAR}
+	    </if>
+	    <if test="gid != null">
+			AND t1.gid = #{gid,jdbcType=INTEGER}
+	    </if>
+	    <if test="name != null">
+			AND t2.title LIKE #{name,jdbcType=VARCHAR}
+	    </if>
+		<if test="content != null">
+			AND t1.content LIKE #{content,jdbcType=LONGVARCHAR}
+	    </if>
+	    <if test="remark != null">
+			AND t2.remark LIKE #{remark,jdbcType=VARCHAR}
+	    </if>
+	    <if test="starttime != null">
+			AND starttime <![CDATA[<=]]> #{starttime,jdbcType=TIMESTAMP}
+	    </if>
+	    <if test="endtime != null">
+			AND endtime <![CDATA[>=]]> #{endtime,jdbcType=TIMESTAMP}
+	    </if>
+	</select>
+	
+	<select id="findNotesList"
+		parameterType="me.leig.happenathomeserver.dao.model.NotesExt01"
+		resultType="me.leig.happenathomeserver.dao.model.NotesExt01">
+		SELECT
+			t1.id,
+			t1.title,
+			t1.gid,
+			t2.title AS `name`,
+			t1.content,
+			t2.remark,
+			t1.createtime,
+			t1.updatetime,
+			t1.deleteflag
+		FROM
+			notes t1
+		LEFT JOIN notesgenre t2 ON t1.gid = t2.id
+		WHERE
+			t1.deleteflag = #{deleteflag,jdbcType=INTEGER}
+		<if test="id != null">
+			AND t1.id = #{id,jdbcType=INTEGER}
+	    </if>
+	    <if test="title != null">
+			AND t1.title LIKE #{title,jdbcType=VARCHAR}
+	    </if>
+	    <if test="gid != null">
+			AND t1.gid = #{gid,jdbcType=INTEGER}
+	    </if>
+	    <if test="name != null">
+			AND t2.title LIKE #{name,jdbcType=VARCHAR}
+	    </if>
+		<if test="content != null">
+			AND t1.content LIKE #{content,jdbcType=LONGVARCHAR}
+	    </if>
+	    <if test="remark != null">
+			AND t2.remark LIKE #{remark,jdbcType=VARCHAR}
+	    </if>
+	    <if test="starttime != null">
+			AND starttime <![CDATA[<=]]> #{starttime,jdbcType=TIMESTAMP}
+	    </if>
+	    <if test="endtime != null">
+			AND endtime <![CDATA[>=]]> #{endtime,jdbcType=TIMESTAMP}
+	    </if>
+	    ORDER BY t1.createtime DESC, t1.id DESC
+	    <if test="start != null">
+			LIMIT #{start,jdbcType=INTEGER}, #{limit,jdbcType=INTEGER}
+	    </if>
+	</select>
+
+
+	
+</mapper>

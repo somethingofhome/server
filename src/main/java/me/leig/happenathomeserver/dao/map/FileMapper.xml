@@ -1,0 +1,532 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="me.leig.happenathomeserver.dao.mapper.FileMapper">
+  <resultMap id="BaseResultMap" type="me.leig.happenathomeserver.dao.model.File">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="title" jdbcType="VARCHAR" property="title" />
+    <result column="fileType" jdbcType="INTEGER" property="filetype" />
+    <result column="mimeType" jdbcType="VARCHAR" property="mimetype" />
+    <result column="fileSize" jdbcType="BIGINT" property="filesize" />
+    <result column="createTime" jdbcType="TIMESTAMP" property="createtime" />
+    <result column="uploadTime" jdbcType="TIMESTAMP" property="uploadtime" />
+    <result column="updateTime" jdbcType="TIMESTAMP" property="updatetime" />
+    <result column="deleteTime" jdbcType="TIMESTAMP" property="deletetime" />
+    <result column="deleteFlag" jdbcType="INTEGER" property="deleteflag" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="me.leig.happenathomeserver.dao.model.File">
+    <result column="content" jdbcType="LONGVARCHAR" property="content" />
+    <result column="saveUrl" jdbcType="LONGVARCHAR" property="saveurl" />
+    <result column="tempUrl" jdbcType="LONGVARCHAR" property="tempurl" />
+    <result column="longitude" jdbcType="LONGVARCHAR" property="longitude" />
+    <result column="latitude" jdbcType="LONGVARCHAR" property="latitude" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, title, fileType, mimeType, fileSize, createTime, uploadTime, updateTime, deleteTime, 
+    deleteFlag
+  </sql>
+  <sql id="Blob_Column_List">
+    content, saveUrl, tempUrl, longitude, latitude
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from file
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from file
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="me.leig.happenathomeserver.dao.model.File">
+    insert into file (id, title, fileType, 
+      mimeType, fileSize, createTime, 
+      uploadTime, updateTime, deleteTime, 
+      deleteFlag, content, saveUrl, 
+      tempUrl, longitude, latitude
+      )
+    values (#{id,jdbcType=INTEGER}, #{title,jdbcType=VARCHAR}, #{filetype,jdbcType=INTEGER}, 
+      #{mimetype,jdbcType=VARCHAR}, #{filesize,jdbcType=BIGINT}, #{createtime,jdbcType=TIMESTAMP}, 
+      #{uploadtime,jdbcType=TIMESTAMP}, #{updatetime,jdbcType=TIMESTAMP}, #{deletetime,jdbcType=TIMESTAMP}, 
+      #{deleteflag,jdbcType=INTEGER}, #{content,jdbcType=LONGVARCHAR}, #{saveurl,jdbcType=LONGVARCHAR}, 
+      #{tempurl,jdbcType=LONGVARCHAR}, #{longitude,jdbcType=LONGVARCHAR}, #{latitude,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="me.leig.happenathomeserver.dao.model.File">
+    insert into file
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="title != null">
+        title,
+      </if>
+      <if test="filetype != null">
+        fileType,
+      </if>
+      <if test="mimetype != null">
+        mimeType,
+      </if>
+      <if test="filesize != null">
+        fileSize,
+      </if>
+      <if test="createtime != null">
+        createTime,
+      </if>
+      <if test="uploadtime != null">
+        uploadTime,
+      </if>
+      <if test="updatetime != null">
+        updateTime,
+      </if>
+      <if test="deletetime != null">
+        deleteTime,
+      </if>
+      <if test="deleteflag != null">
+        deleteFlag,
+      </if>
+      <if test="content != null">
+        content,
+      </if>
+      <if test="saveurl != null">
+        saveUrl,
+      </if>
+      <if test="tempurl != null">
+        tempUrl,
+      </if>
+      <if test="longitude != null">
+        longitude,
+      </if>
+      <if test="latitude != null">
+        latitude,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="title != null">
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="filetype != null">
+        #{filetype,jdbcType=INTEGER},
+      </if>
+      <if test="mimetype != null">
+        #{mimetype,jdbcType=VARCHAR},
+      </if>
+      <if test="filesize != null">
+        #{filesize,jdbcType=BIGINT},
+      </if>
+      <if test="createtime != null">
+        #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="uploadtime != null">
+        #{uploadtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatetime != null">
+        #{updatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="deletetime != null">
+        #{deletetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="deleteflag != null">
+        #{deleteflag,jdbcType=INTEGER},
+      </if>
+      <if test="content != null">
+        #{content,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="saveurl != null">
+        #{saveurl,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="tempurl != null">
+        #{tempurl,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="longitude != null">
+        #{longitude,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="latitude != null">
+        #{latitude,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="me.leig.happenathomeserver.dao.model.File">
+    update file
+    <set>
+      <if test="title != null">
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="filetype != null">
+        fileType = #{filetype,jdbcType=INTEGER},
+      </if>
+      <if test="mimetype != null">
+        mimeType = #{mimetype,jdbcType=VARCHAR},
+      </if>
+      <if test="filesize != null">
+        fileSize = #{filesize,jdbcType=BIGINT},
+      </if>
+      <if test="createtime != null">
+        createTime = #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="uploadtime != null">
+        uploadTime = #{uploadtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatetime != null">
+        updateTime = #{updatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="deletetime != null">
+        deleteTime = #{deletetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="deleteflag != null">
+        deleteFlag = #{deleteflag,jdbcType=INTEGER},
+      </if>
+      <if test="content != null">
+        content = #{content,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="saveurl != null">
+        saveUrl = #{saveurl,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="tempurl != null">
+        tempUrl = #{tempurl,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="longitude != null">
+        longitude = #{longitude,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="latitude != null">
+        latitude = #{latitude,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="me.leig.happenathomeserver.dao.model.File">
+    update file
+    set title = #{title,jdbcType=VARCHAR},
+      fileType = #{filetype,jdbcType=INTEGER},
+      mimeType = #{mimetype,jdbcType=VARCHAR},
+      fileSize = #{filesize,jdbcType=BIGINT},
+      createTime = #{createtime,jdbcType=TIMESTAMP},
+      uploadTime = #{uploadtime,jdbcType=TIMESTAMP},
+      updateTime = #{updatetime,jdbcType=TIMESTAMP},
+      deleteTime = #{deletetime,jdbcType=TIMESTAMP},
+      deleteFlag = #{deleteflag,jdbcType=INTEGER},
+      content = #{content,jdbcType=LONGVARCHAR},
+      saveUrl = #{saveurl,jdbcType=LONGVARCHAR},
+      tempUrl = #{tempurl,jdbcType=LONGVARCHAR},
+      longitude = #{longitude,jdbcType=LONGVARCHAR},
+      latitude = #{latitude,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="me.leig.happenathomeserver.dao.model.File">
+    update file
+    set title = #{title,jdbcType=VARCHAR},
+      fileType = #{filetype,jdbcType=INTEGER},
+      mimeType = #{mimetype,jdbcType=VARCHAR},
+      fileSize = #{filesize,jdbcType=BIGINT},
+      createTime = #{createtime,jdbcType=TIMESTAMP},
+      uploadTime = #{uploadtime,jdbcType=TIMESTAMP},
+      updateTime = #{updatetime,jdbcType=TIMESTAMP},
+      deleteTime = #{deletetime,jdbcType=TIMESTAMP},
+      deleteFlag = #{deleteflag,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+	<!-- 自定义方法 -->
+	<!-- 自定义方法 -->
+	<!-- 自定义方法 -->
+	<!-- 自定义方法 -->
+	<!-- 自定义方法 -->
+	<!-- 自定义方法 -->
+	<!-- 自定义方法 -->
+	<!-- 自定义方法 -->
+	<!-- 自定义方法 -->
+	<!-- 自定义方法 -->
+	
+	<select id="recordCount" parameterType="me.leig.happenathomeserver.dao.model.File" resultType="java.lang.Integer">
+		SELECT
+			COUNT(id)
+		FROM
+			file
+		WHERE
+			deleteFlag = #{deleteflag,jdbcType=INTEGER}
+		<if test="title != null">
+			AND title = #{title,jdbcType=VARCHAR}
+		</if>
+		<if test="filetype != null">
+			AND fileType = #{filetype,jdbcType=INTEGER}
+		</if>
+		<if test="mimetype != null">
+			AND mimeType = #{mimetype,jdbcType=VARCHAR}
+		</if>
+		<if test="filesize != null">
+			AND fileSize = #{filesize,jdbcType=BIGINT}
+		</if>
+		<if test="createtime != null">
+			AND createTime = #{createtime,jdbcType=TIMESTAMP}
+		</if>
+		<if test="uploadtime != null">
+			AND uploadTime = #{uploadtime,jdbcType=TIMESTAMP}
+		</if>
+		<if test="updatetime != null">
+			AND updateTime = #{updatetime,jdbcType=TIMESTAMP}
+		</if>
+		<if test="content != null">
+			AND content = #{content,jdbcType=LONGVARCHAR}
+		</if>
+		<if test="saveurl != null">
+			AND saveUrl = #{saveurl,jdbcType=LONGVARCHAR}
+		</if>
+		<if test="tempurl != null">
+			AND tempUrl = #{tempurl,jdbcType=LONGVARCHAR}
+		</if>
+		<if test="longitude != null">
+			AND longitude = #{longitude,jdbcType=LONGVARCHAR}
+		</if>
+		<if test="latitude != null">
+			AND latitude = #{latitude,jdbcType=LONGVARCHAR}
+		</if>
+	</select>
+		
+	<select id="findFiles" parameterType="me.leig.happenathomeserver.dao.model.File" resultType="me.leig.happenathomeserver.dao.model.File">
+		SELECT
+			id,
+			title,
+			fileType,
+			mimeType,
+			fileSize,
+			createTime,
+			uploadTime,
+			updateTime,
+			deleteTime,
+			deleteFlag,
+			content,
+			saveUrl,
+			tempUrl,
+			longitude,
+			latitude
+		FROM
+			file
+		WHERE
+			deleteFlag = #{deleteflag,jdbcType=INTEGER}
+		<if test="title != null">
+			AND title = #{title,jdbcType=VARCHAR}
+		</if>
+		<if test="filetype != null">
+			AND fileType = #{filetype,jdbcType=INTEGER}
+		</if>
+		<if test="mimetype != null">
+			AND mimeType = #{mimetype,jdbcType=VARCHAR}
+		</if>
+		<if test="filesize != null">
+			AND fileSize = #{filesize,jdbcType=BIGINT}
+		</if>
+		<if test="createtime != null">
+			AND createTime = #{createtime,jdbcType=TIMESTAMP}
+		</if>
+		<if test="uploadtime != null">
+			AND uploadTime = #{uploadtime,jdbcType=TIMESTAMP}
+		</if>
+		<if test="updatetime != null">
+			AND updateTime = #{updatetime,jdbcType=TIMESTAMP}
+		</if>
+		<if test="content != null">
+			AND content = #{content,jdbcType=LONGVARCHAR}
+		</if>
+		<if test="saveurl != null">
+			AND saveUrl = #{saveurl,jdbcType=LONGVARCHAR}
+		</if>
+		<if test="tempurl != null">
+			AND tempUrl = #{tempurl,jdbcType=LONGVARCHAR}
+		</if>
+		<if test="longitude != null">
+			AND longitude = #{longitude,jdbcType=LONGVARCHAR}
+		</if>
+		<if test="latitude != null">
+			AND latitude = #{latitude,jdbcType=LONGVARCHAR}
+		</if>
+		ORDER BY
+			updateTime,id DESC
+		LIMIT #{start,jdbcType=INTEGER}, #{limit,jdbcType=INTEGER}
+	</select>
+
+	<select id="findFile" parameterType="java.lang.Integer" resultType="me.leig.happenathomeserver.dao.model.File">
+		SELECT
+			id,
+			title,
+			fileType,
+			mimeType,
+			fileSize,
+			createTime,
+			uploadTime,
+			updateTime,
+			deleteTime,
+			deleteFlag,
+			content,
+			saveUrl,
+			tempUrl,
+			longitude,
+			latitude
+		FROM
+			file
+		WHERE
+			deleteFlag = #{deleteflag,jdbcType=INTEGER}
+		AND id = #{id,jdbcType=INTEGER}
+	</select>
+
+	<insert id="addFile" keyProperty="id" parameterType="me.leig.happenathomeserver.dao.model.File" useGeneratedKeys="true">
+	  insert into file
+	  <trim prefix="(" suffix=")" suffixOverrides=",">
+	    <if test="title != null">
+	      title,
+	    </if>
+	    <if test="filetype != null">
+	      fileType,
+	    </if>
+	    <if test="mimetype != null">
+	      mimeType,
+	    </if>
+	    <if test="filesize != null">
+	      fileSize,
+	    </if>
+	    <if test="createtime != null">
+	      createTime,
+	    </if>
+	    <if test="uploadtime != null">
+	      uploadTime,
+	    </if>
+	    <if test="updatetime != null">
+	      updateTime,
+	    </if>
+	    <if test="deletetime != null">
+	      deleteTime,
+	    </if>
+	    <if test="deleteflag != null">
+	      deleteFlag,
+	    </if>
+	    <if test="content != null">
+	      content,
+	    </if>
+	    <if test="saveurl != null">
+	      saveUrl,
+	    </if>
+	    <if test="tempurl != null">
+	      tempUrl,
+	    </if>
+	    <if test="longitude != null">
+	      longitude,
+	    </if>
+	    <if test="latitude != null">
+	      latitude,
+	    </if>
+	  </trim>
+	  <trim prefix="values (" suffix=")" suffixOverrides=",">
+	    <if test="title != null">
+	      #{title,jdbcType=VARCHAR},
+	    </if>
+	    <if test="filetype != null">
+	      #{filetype,jdbcType=INTEGER},
+	    </if>
+	    <if test="mimetype != null">
+	      #{mimetype,jdbcType=VARCHAR},
+	    </if>
+	    <if test="filesize != null">
+	      #{filesize,jdbcType=BIGINT},
+	    </if>
+	    <if test="createtime != null">
+	      #{createtime,jdbcType=TIMESTAMP},
+	    </if>
+	    <if test="uploadtime != null">
+	      #{uploadtime,jdbcType=TIMESTAMP},
+	    </if>
+	    <if test="updatetime != null">
+	      #{updatetime,jdbcType=TIMESTAMP},
+	    </if>
+	    <if test="deletetime != null">
+	      #{deletetime,jdbcType=TIMESTAMP},
+	    </if>
+	    <if test="deleteflag != null">
+	      #{deleteflag,jdbcType=INTEGER},
+	    </if>
+	    <if test="content != null">
+	      #{content,jdbcType=LONGVARCHAR},
+	    </if>
+	    <if test="saveurl != null">
+	      #{saveurl,jdbcType=LONGVARCHAR},
+	    </if>
+	    <if test="tempurl != null">
+	      #{tempurl,jdbcType=LONGVARCHAR},
+	    </if>
+	    <if test="longitude != null">
+	      #{longitude,jdbcType=LONGVARCHAR},
+	    </if>
+	    <if test="latitude != null">
+	      #{latitude,jdbcType=LONGVARCHAR},
+	    </if>
+	  </trim>
+	</insert>
+	
+	<update id="updateFile" parameterType="me.leig.happenathomeserver.dao.model.File">
+	  update file
+	  <set>
+	    <if test="title != null">
+	      title = #{title,jdbcType=VARCHAR},
+	    </if>
+	    <if test="filetype != null">
+	      fileType = #{filetype,jdbcType=INTEGER},
+	    </if>
+	    <if test="mimetype != null">
+	      mimeType = #{mimetype,jdbcType=VARCHAR},
+	    </if>
+	    <if test="filesize != null">
+	      fileSize = #{filesize,jdbcType=BIGINT},
+	    </if>
+	    <if test="createtime != null">
+	      createTime = #{createtime,jdbcType=TIMESTAMP},
+	    </if>
+	    <if test="uploadtime != null">
+	      uploadTime = #{uploadtime,jdbcType=TIMESTAMP},
+	    </if>
+	    <if test="updatetime != null">
+	      updateTime = #{updatetime,jdbcType=TIMESTAMP},
+	    </if>
+	    <if test="deletetime != null">
+	      deleteTime = #{deletetime,jdbcType=TIMESTAMP},
+	    </if>
+	    <if test="deleteflag != null">
+	      deleteFlag = #{deleteflag,jdbcType=INTEGER},
+	    </if>
+	    <if test="content != null">
+	      content = #{content,jdbcType=LONGVARCHAR},
+	    </if>
+	    <if test="saveurl != null">
+	      saveUrl = #{saveurl,jdbcType=LONGVARCHAR},
+	    </if>
+	    <if test="tempurl != null">
+	      tempUrl = #{tempurl,jdbcType=LONGVARCHAR},
+	    </if>
+	    <if test="longitude != null">
+	      longitude = #{longitude,jdbcType=LONGVARCHAR},
+	    </if>
+	    <if test="latitude != null">
+	      latitude = #{latitude,jdbcType=LONGVARCHAR},
+	    </if>
+	  </set>
+	  where id = #{id,jdbcType=INTEGER}
+	</update>
+	
+	
+</mapper>
